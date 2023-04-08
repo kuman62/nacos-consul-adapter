@@ -4,12 +4,12 @@ import io.github.kuman.nacos.consul.adapter.response.ConsulHealthResponse;
 import io.github.kuman.nacos.consul.adapter.response.ConsulServiceResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 协议格式转换
@@ -62,7 +62,8 @@ public class ConsulAdapterCommon {
                     .status("UP")
                     .build();
 
-            consulHealthResponseList.add(ConsulHealthResponse.builder().node(node).service(service).checks(Collections.singletonList(check)).build());
+            //consulHealthResponseList.add(ConsulHealthResponse.builder().node(node).service(service).checks(Collections.singletonList(check)).build());
+            consulHealthResponseList.add(ConsulHealthResponse.builder().node(node).service(service).build());
         }
         return consulHealthResponseList;
     }
@@ -98,5 +99,18 @@ public class ConsulAdapterCommon {
             consulServiceResponseList.add(response);
         }
         return consulServiceResponseList;
+    }
+
+
+    /**
+     * 创建带头的响应报文
+     * @param response 响应报文
+     * @param index 编号
+     * @return 响应报文
+     */
+    public static <T> ResponseEntity<T> createResponseEntity(T response, Long index) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set(ConsulAdapterConstant.CONSUL_IDX_HEADER, "" + (Objects.isNull(index) ? 0 : index ));
+        return new ResponseEntity<>(response, httpHeaders, HttpStatus.OK);
     }
 }

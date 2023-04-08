@@ -1,6 +1,7 @@
 package io.github.kuman.nacos.consul.adapter.service;
 
 
+import io.github.kuman.nacos.consul.adapter.response.ConsulResponse;
 import org.springframework.cloud.client.ServiceInstance;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface DiscoveryService {
      *
      * @return 返回所有服务名称
      */
-    Map<String, List<String>> getServiceNames();
+    ConsulResponse<Map<String, List<String>>> getServiceNames(Long index);
 
     /**
      * 获取指定服务所有实例（consul新版本协议）
@@ -27,13 +28,13 @@ public interface DiscoveryService {
      * @param serviceId 服务名
      * @return 返回指定服务所有实例
      */
-    List<ServiceInstance> getServiceInstancesHealth(String serviceId);
+    ConsulResponse<List<ServiceInstance>> getServiceInstancesHealth(String serviceId, Long index);
 
     /**
      * 获取指定服务所有实例（consul老版本协议）
      * @param serviceId 服务名
      * @return 返回指定服务所有实例
      */
-    List<ServiceInstance> getServiceInstances(String serviceId);
+    ConsulResponse<List<ServiceInstance>> getServiceInstances(String serviceId, Long index);
 
 }

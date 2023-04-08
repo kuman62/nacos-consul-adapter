@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 /**
@@ -35,7 +36,10 @@ public class PollingDiscoveryServiceTask {
     private NacosDiscoveryProperties nacosDiscoveryProperties;
     @Resource
     private NacosServiceManager nacosServiceManager;
-
+    /**
+     * 第一次注册事件
+     */
+    private static final AtomicBoolean SUBSCRIBE = new AtomicBoolean(false);
     /**
      * 定时任务
      */
@@ -45,7 +49,7 @@ public class PollingDiscoveryServiceTask {
             Set<String> listenerList = new HashSet<>(16);
             MutableBoolean isCache = new MutableBoolean(true);
             Set<String> cacheServiceNameList = pollingDiscoveryServiceCache.getServicesFlagChannel(isCache);
-            if(isCache.isTrue()) {
+            if(isCache.isTrue() && SUBSCRIBE.get()) {
                 Set<String> serviceNameList = discoveryServiceDao.getServiceIdList();
                 boolean isNotChange = cacheServiceNameList.containsAll(serviceNameList) && serviceNameList.containsAll(cacheServiceNameList);
                 log.debug("从服务注册中心获取到服务数量为:{},本地缓存记录数量为:{},明细{}", serviceNameList.size(), cacheServiceNameList.size(),isNotChange ? "没有变化,无需更新本地缓存" : "有变化,需要更新本地缓存");
@@ -54,11 +58,12 @@ public class PollingDiscoveryServiceTask {
                 }
                 listenerList.addAll(serviceNameList.stream().filter(e -> !cacheServiceNameList.contains(e)).collect(Collectors.toSet()));
             } else {
-                log.debug("从本地缓存获取到服务数量为:{}",cacheServiceNameList.size());
+                log.debug("从服务注册中心获取到服务数量为:{}",cacheServiceNameList.size());
                 listenerList.addAll(cacheServiceNameList);
             }
             if(!listenerList.isEmpty()) {
                 subscribe(listenerList);
+                SUBSCRIBE.compareAndSet(false, true);
             }
         } catch (Exception e) {
             log.error("定时任务执行出错", e);

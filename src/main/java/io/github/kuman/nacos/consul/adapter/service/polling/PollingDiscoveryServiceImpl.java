@@ -1,5 +1,6 @@
 package io.github.kuman.nacos.consul.adapter.service.polling;
 
+import io.github.kuman.nacos.consul.adapter.response.ConsulResponse;
 import io.github.kuman.nacos.consul.adapter.service.DiscoveryService;
 import io.github.kuman.nacos.consul.adapter.common.ConsulAdapterConstant;
 import lombok.extern.slf4j.Slf4j;
@@ -29,13 +30,13 @@ public class PollingDiscoveryServiceImpl implements DiscoveryService {
      * @return 返回所有服务名称
      */
     @Override
-    public Map<String, List<String>> getServiceNames() {
+    public ConsulResponse<Map<String, List<String>>> getServiceNames(Long index) {
         Set<String> services = pollingDiscoveryServiceCache.getServices();
         Map<String, List<String>> result = new HashMap<>(services.size());
         for (String item : services) {
             result.put(item, Collections.emptyList());
         }
-        return result;
+        return new ConsulResponse<>(result, System.currentTimeMillis());
     }
 
     /**
@@ -45,8 +46,8 @@ public class PollingDiscoveryServiceImpl implements DiscoveryService {
      * @return 返回指定服务所有实例
      */
     @Override
-    public List<ServiceInstance> getServiceInstancesHealth(String serviceId) {
-        return pollingDiscoveryServiceCache.getServiceInstances(serviceId);
+    public ConsulResponse<List<ServiceInstance>> getServiceInstancesHealth(String serviceId, Long index) {
+        return new ConsulResponse<>(pollingDiscoveryServiceCache.getServiceInstances(serviceId), System.currentTimeMillis());
     }
 
     /**
@@ -55,8 +56,8 @@ public class PollingDiscoveryServiceImpl implements DiscoveryService {
      * @return 返回指定服务所有实例
      */
     @Override
-    public List<ServiceInstance> getServiceInstances(String serviceId) {
-        return pollingDiscoveryServiceCache.getServiceInstances(serviceId);
+    public ConsulResponse<List<ServiceInstance>> getServiceInstances(String serviceId, Long index) {
+        return new ConsulResponse<>(pollingDiscoveryServiceCache.getServiceInstances(serviceId), System.currentTimeMillis());
     }
 
 }

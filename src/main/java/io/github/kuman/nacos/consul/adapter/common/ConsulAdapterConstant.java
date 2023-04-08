@@ -9,6 +9,11 @@ package io.github.kuman.nacos.consul.adapter.common;
 public final class ConsulAdapterConstant {
 
     private ConsulAdapterConstant() {}
+
+    public static final String QUERY_PARAM_WAIT = "wait";
+    public static final String QUERY_PARAM_INDEX = "index";
+    public static final String CONSUL_IDX_HEADER = "X-Consul-Index";
+
     /** 运行模式 */
     public static final String NACOS_MODE = "nacos.consul.adapter.mode";
     public static final String LONG_POLLING_MODE = "polling";
