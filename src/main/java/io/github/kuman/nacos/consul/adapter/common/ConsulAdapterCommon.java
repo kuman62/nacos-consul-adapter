@@ -62,8 +62,7 @@ public class ConsulAdapterCommon {
                     .status("UP")
                     .build();
 
-            //consulHealthResponseList.add(ConsulHealthResponse.builder().node(node).service(service).checks(Collections.singletonList(check)).build());
-            consulHealthResponseList.add(ConsulHealthResponse.builder().node(node).service(service).build());
+            consulHealthResponseList.add(ConsulHealthResponse.builder().node(node).service(service).checks(Collections.singletonList(check)).build());
         }
         return consulHealthResponseList;
     }
