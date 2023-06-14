@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * nacos转consul health 相关服务接口封装
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/25 17:36
  */
 @Slf4j

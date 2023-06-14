@@ -3,7 +3,7 @@ package io.github.kuman.nacos.consul.adapter.common;
 /**
  * 常量定义
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/25 20:20
  */
 public final class ConsulAdapterConstant {

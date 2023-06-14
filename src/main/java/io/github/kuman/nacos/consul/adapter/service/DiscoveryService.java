@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 返回服务和上次更改的服务列表
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/23 20:03
  */
 public interface DiscoveryService {

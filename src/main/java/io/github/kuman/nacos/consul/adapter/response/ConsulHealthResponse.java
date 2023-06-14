@@ -13,7 +13,7 @@ import java.util.Map;
  * <a href="https://developer.hashicorp.com/consul/api-docs/health">health协议参考</a>
  * /v1/health/service/my-service?ns=default
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/25 18:01
  */
 @Getter

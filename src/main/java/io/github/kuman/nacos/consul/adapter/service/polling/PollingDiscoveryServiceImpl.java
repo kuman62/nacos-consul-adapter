@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * 长轮询模式
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/23 20:05
  */
 @Slf4j

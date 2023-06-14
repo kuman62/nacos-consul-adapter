@@ -1,6 +1,8 @@
 # Nacos Consul Adapter(for Prometheus)
 Prometheus官方提供Consul为注册中心的配置方式，配置后可自动获取Consul中所有实例的信息并进行监控。  如果想使用Prometheus监控使用其他注册中心的服务就需要一些额外的适配，适配的目的是让项目提供Consul服务器相同接口。  
-本项目是Nacos服务注册中心适配器，供Prometheus获取注册中心的所有实例信息。  
+本项目是Nacos服务注册中心适配器，供Prometheus获取注册中心的所有实例信息。
+项目主要为了获取端点信息，因management.endpoints.web.base-path和server.servlet.context-path可能设置不一致，导致需要开启management.server.port参数配置
+management.server.port与server.port可能不一致，当不一致时，本工程优先使用management.server.port配置
 
 ## 特性
 项目一共只有四个接口:  

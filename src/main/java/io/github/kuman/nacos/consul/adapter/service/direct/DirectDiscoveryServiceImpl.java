@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * 直接请求注册中心模式
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/23 20:03
  */
 @Slf4j

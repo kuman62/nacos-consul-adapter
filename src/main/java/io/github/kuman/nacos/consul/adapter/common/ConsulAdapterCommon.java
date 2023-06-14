@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * 协议格式转换
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/30 20:00
  */
 @Slf4j
@@ -38,10 +38,21 @@ public class ConsulAdapterCommon {
         for (ServiceInstance item : serviceInstanceList) {
             Map<String, String> metadataMap = item.getMetadata();
             metadataMap.put(NACOS_APPLICATION_NAME, serviceId);
+
+            String servicePort = metadataMap.get("management.port");
+            if(!StringUtils.hasLength(servicePort)) {
+                servicePort = String.valueOf(item.getPort());
+            }
+
             String instanceId = metadataMap.get("nacos.instanceId");
             if(!StringUtils.hasLength(instanceId)) {
-                instanceId = item.getHost() + "#" + item.getPort();
+                instanceId = item.getHost() + "#" + servicePort;
+            } else {
+                if(!servicePort.equals(String.valueOf(item.getPort()))) {
+                    instanceId = instanceId.replace(String.valueOf(item.getPort()), servicePort);
+                }
             }
+
             ConsulHealthResponse.Node node = ConsulHealthResponse.Node.builder()
                     .id(instanceId)
                     .address(item.getHost())
@@ -50,14 +61,14 @@ public class ConsulAdapterCommon {
 
             ConsulHealthResponse.Service service = ConsulHealthResponse.Service.builder()
                     .service(serviceId)
-                    .id(serviceId + "-" + item.getPort())
-                    .port(item.getPort())
+                    .id(serviceId + "-" + servicePort)
+                    .port(Integer.parseInt(servicePort))
                     .meta(metadataMap)
                     .build();
 
             ConsulHealthResponse.Check check = ConsulHealthResponse.Check.builder()
                     .node(item.getServiceId())
-                    .checkID(item.getHost() + ":" + item.getPort())
+                    .checkID(item.getHost() + ":" + servicePort)
                     .name(item.getServiceId())
                     .status("UP")
                     .build();
@@ -79,21 +90,32 @@ public class ConsulAdapterCommon {
         for (ServiceInstance item : serviceInstanceList) {
             Map<String, String> metadataMap = item.getMetadata();
             metadataMap.put(NACOS_APPLICATION_NAME, serviceId);
+
+            String servicePort = metadataMap.get("management.port");
+            if(!StringUtils.hasLength(servicePort)) {
+                servicePort = String.valueOf(item.getPort());
+            }
+
             //nacos.instanceId : "10.20.16.44#8085#DEFAULT#DEFAULT_GROUP@@dubbo-provider3",
             String instanceId = metadataMap.get("nacos.instanceId");
             if(!StringUtils.hasLength(instanceId)) {
-                instanceId = item.getHost() + "#" + item.getPort();
+                instanceId = item.getHost() + "#" + servicePort;
+            } else {
+                if(!servicePort.equals(String.valueOf(item.getPort()))) {
+                    instanceId = instanceId.replace(String.valueOf(item.getPort()), servicePort);
+                }
             }
+
             ConsulServiceResponse response = ConsulServiceResponse.builder()
                     .id(instanceId)
                     .node("nacos")
                     .address(item.getHost())
                     .dataCenter(ConsulAdapterConstant.DATA_CENTER)
                     .nodeMeta(metadataMap)
-                    .serviceId(serviceId + "-" + item.getPort())
+                    .serviceId(serviceId + "-" + servicePort)
                     .serviceName(serviceId)
                     .serviceAddress(item.getHost())
-                    .servicePort(item.getPort()).build();
+                    .servicePort(Integer.parseInt(servicePort)).build();
 
             consulServiceResponseList.add(response);
         }

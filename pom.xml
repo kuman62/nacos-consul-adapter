@@ -11,9 +11,9 @@
 
     <groupId>io.github.kuman</groupId>
     <artifactId>nacos-consul-adapter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>nacos-consul-adapter</name>
-    <description>nacos 适配 prometheus consul</description>
+    <description>Nacos Consul Adapter for Prometheus</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -97,5 +97,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

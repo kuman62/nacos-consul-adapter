@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * consul协议格式定义-Agent
  * <a href="https://developer.hashicorp.com/consul/api-docs/agent">agent协议</a>
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/25 18:01
  */
 @Builder

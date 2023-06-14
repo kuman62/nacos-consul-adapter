@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Primary;
 /**
  * 缓存管理器
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/30 10:39
  */
 @Slf4j

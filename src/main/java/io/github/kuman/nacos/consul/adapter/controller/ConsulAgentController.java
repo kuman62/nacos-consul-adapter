@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * consul agent 接口封装
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/24 08:49
  */
 @RestController

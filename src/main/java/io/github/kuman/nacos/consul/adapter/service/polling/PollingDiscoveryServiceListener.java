@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 /**
  * 服务变化监听
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/30 17:32
  */
 @Slf4j

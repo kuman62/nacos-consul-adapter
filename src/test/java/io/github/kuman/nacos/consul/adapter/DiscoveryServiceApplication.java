@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * 启动类
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/28 08:49
  */
 @SpringBootApplication

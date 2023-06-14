@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * consul service 结果封装类
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/04/08 23:37
  */
 @Getter

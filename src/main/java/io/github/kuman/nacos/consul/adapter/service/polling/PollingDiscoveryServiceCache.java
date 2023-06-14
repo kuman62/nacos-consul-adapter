@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * 服务发现任务
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/23 20:03
  */
 @Slf4j

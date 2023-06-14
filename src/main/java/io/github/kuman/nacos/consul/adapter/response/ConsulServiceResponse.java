@@ -12,7 +12,7 @@ import java.util.Map;
  * <a href="https://developer.hashicorp.com/consul/api-docs/catalog#list-services">service协议参考</a>
  * /v1/catalog/service/web?ns=default
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/25 18:01
  */
 @Getter

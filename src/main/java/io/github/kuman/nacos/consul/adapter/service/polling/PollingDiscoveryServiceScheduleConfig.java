@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * spring-boot 多线程  @Scheduled注解 并发定时任务的解决方案
  *
- * @author manco
+ * @author kuman
  * @since 1.0, 2023/03/23 20:03
  */
 @Slf4j
